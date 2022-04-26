@@ -5,6 +5,7 @@ const app = express();
 
 const authRoutes = require('./routes/auth');
 const quizRoutes = require('./routes/quiz');
+const { get404 } = require('./controllers/error');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -19,8 +20,6 @@ app.use((req,res,next) => {
 app.use('/auth', authRoutes);
 app.use('/quiz', quizRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).send('<h1> Page Not Found</h1>');
-});
+app.use(get404);
 
 app.listen(3000);

@@ -1,16 +1,12 @@
 
 const express = require('express');
+const { postUserData, postLoginData, getUserDetails } = require('../controllers/user');
 
 const router = express.Router();
 
-router.post('/signup', (req, res, next) => {
-    console.log(req.body);
-    res.status(200).send('success');
-});
+router.post('/signup', postUserData);
+router.post('/login', postLoginData);
 
-router.post('/login', (req, res, next) => {
-    console.log(req.body);
-    res.status(200).send('success');
-});
+router.get('/user', getUserDetails);
 
 module.exports = router;
