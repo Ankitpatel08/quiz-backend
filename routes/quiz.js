@@ -1,10 +1,9 @@
 const express = require('express');
+const { getQuizData, saveQuestion } = require('../controllers/quiz');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    console.log(req.body);
-    console.log(req.url);
-});
+router.post('/add', saveQuestion);
+router.get('/:code', getQuizData);
 
 module.exports = router;
