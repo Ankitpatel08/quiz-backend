@@ -1,15 +1,27 @@
-const users = [];
+const Sequelize = require('sequelize');
 
-module.exports = class User {
-    constructor(data) {
-        this.data = data;
-    }
+const sequelize = require('../util/database');
 
-    saveUser() {
-        users.push(this.data);
+const User = sequelize.define('user', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: 'compositeIndex'
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
+});
 
-    static fetchAllUsers() {
-        return users;
-    }
-}
+module.exports = User;

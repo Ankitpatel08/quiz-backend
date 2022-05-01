@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const sequelize = require('./util/database');
+
 const app = express();
 
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/user');
 const quizRoutes = require('./routes/quiz');
 const { get404 } = require('./controllers/error');
 
@@ -17,9 +19,14 @@ app.use((req,res,next) => {
     next();
 });
 
-app.use('/auth', authRoutes);
+app.use('/user', authRoutes);
 app.use('/quiz', quizRoutes);
 
 app.use(get404);
 
-app.listen(3000);
+sequelize.sync().then(result => {
+    // console.log('result');
+    app.listen(3000);
+}).catch(err => {
+    console.log(err);
+});
